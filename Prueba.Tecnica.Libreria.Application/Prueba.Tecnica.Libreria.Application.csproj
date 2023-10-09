@@ -14,7 +14,6 @@
   <ItemGroup>
     <Folder Include="Commands\Autores\Delete\" />
     <Folder Include="Commands\Autores\Update\" />
-    <Folder Include="Commands\Libros\Delete\" />
     <Folder Include="Commands\Libros\Update\" />
     <Folder Include="Queries\Autores\GetById\" />
     <Folder Include="Queries\Libros\GetById\" />

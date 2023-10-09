@@ -1,11 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using Prueba.Tecnica.Libreria.DataAccess.Persistence;
 using Prueba.Tecnica.Libreria.Entity.Genero;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Prueba.Tecnica.Libreria.Application.Repositories.Generos
 {
@@ -35,6 +31,27 @@ namespace Prueba.Tecnica.Libreria.Application.Repositories.Generos
                 results.Add(autorDisplay);
             }
             return results;
+
+        }
+
+        public async Task<GeneroDTO> AddGenero(GeneroDTO genero)
+        {
+
+            var _genero = await _context.Generos.Where(x => x.Nombre == genero.Nombre).FirstOrDefaultAsync();
+
+
+            if (_genero != null)
+                throw new ValidationException("genero" + genero.Nombre + " ya existe en la base de datos");
+            
+            var newGenero = new Genero
+            {
+                FechaCreacion = DateTime.Now,
+                Nombre = genero.Nombre
+            };
+
+            _context.Generos.Add(newGenero);
+            await _context.SaveChangesAsync();
+            return genero;
 
         }
 

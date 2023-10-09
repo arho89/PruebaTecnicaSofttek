@@ -1,15 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Prueba.Tecnica.Libreria.Entity.Autor;
 using Prueba.Tecnica.Libreria.Entity.Genero;
 using Prueba.Tecnica.Libreria.Entity.Libro;
-using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Prueba.Tecnica.Libreria.Web.Controllers
 {
@@ -115,6 +110,40 @@ namespace Prueba.Tecnica.Libreria.Web.Controllers
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return View(libroDTO);
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Delete(int id)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+
+                    var response = await _httpClient.DeleteAsync("api/Libros?id=" + id.ToString());
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return RedirectToAction(nameof(Index));
+                    }
+                    else if (response.StatusCode == HttpStatusCode.BadRequest)
+                    {
+                        var errorMessage = await response.Content.ReadAsStringAsync();
+                        ModelState.AddModelError(string.Empty, $"Error al eliminar el libro: {errorMessage}");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "Error al eliminar el libro.");
+                    }
+                }
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return RedirectToAction(nameof(Index));
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Prueba.Tecnica.Libreria.Application.Commands.Libros.Add;
+using Prueba.Tecnica.Libreria.Application.Commands.Libros.Delete;
 using Prueba.Tecnica.Libreria.Application.Queries.Libros.GetAll;
 using Prueba.Tecnica.Libreria.Entity.Libro;
 
@@ -18,7 +19,7 @@ namespace Prueba.Tecnica.Libreria.API.Controllers
             _configuration = configuration;
         }
 
-        // GET: api/<AutoresController>
+        // GET: api/Libros
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(List<LibroDTO>))]
         public async Task<IActionResult> Get()
@@ -30,7 +31,7 @@ namespace Prueba.Tecnica.Libreria.API.Controllers
             return Ok(response);
         }
 
-        // POST api/<redarborController>
+        // POST api/Libros
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] LibroDTO libroDTO)
         {
@@ -50,8 +51,23 @@ namespace Prueba.Tecnica.Libreria.API.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
 
-
+        // POST api/Libros
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                return Ok(await _mediator.Send(new DeleteLibroCommand()
+                {
+                    Id = id
+                }));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

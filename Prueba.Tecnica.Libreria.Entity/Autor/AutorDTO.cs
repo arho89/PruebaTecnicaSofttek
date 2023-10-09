@@ -15,13 +15,14 @@ namespace Prueba.Tecnica.Libreria.Entity.Autor
 
         [DisplayName("Fecha de Nacimiento")]
         [Required(ErrorMessage = "{0} is required")]
+        [DataType(DataType.Date, ErrorMessage = "{0} no valid.")]
         public DateTime FechaNacimiento { get; set; }
 
-        [DisplayName("Fecha de Nacimiento")]
+        [DisplayName("Ciudad Procedencia")]
         [Required(ErrorMessage = "{0} is required")]
         public string CiudadProcedencia { get; set; }
 
-        [DisplayName("Fecha de Nacimiento")]
+        [DisplayName("Correo Electronico")]
         [Required(ErrorMessage = "{0} is required")]
         [DataType(DataType.EmailAddress)]
         public string CorreoElectronico { get; set; }

@@ -17,7 +17,7 @@ namespace Prueba.Tecnica.Libreria.API.Controllers
             _mediator = mediator;
         }
 
-        // GET: api/<AutoresController>
+        // GET: api/Autores
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(List<AutorDTO>))]
         public async Task<IActionResult> Get()
@@ -29,7 +29,7 @@ namespace Prueba.Tecnica.Libreria.API.Controllers
             return Ok(response);
         }
 
-        // POST api/<redarborController>
+        // POST api/Autores
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] AutorDTO autorDTO)
         {

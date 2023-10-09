@@ -1,14 +1,8 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
-using Prueba.Tecnica.Libreria.Application.Repositories.Autores;
 using Prueba.Tecnica.Libreria.DataAccess.Persistence;
 using Prueba.Tecnica.Libreria.Entity.Libro;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Prueba.Tecnica.Libreria.Application.Repositories.Lirbos
 {
@@ -56,14 +50,14 @@ namespace Prueba.Tecnica.Libreria.Application.Repositories.Lirbos
             var cantLibros = await _context.Libros.CountAsync();
 
             if (cantLibros >= cantidadLibrosPermitidos)
-                throw new ValidationException("Canitidad de libros Permitidos superado");
+                throw new ValidationException("No es posible registrar el libro, se alcanzó el máximo permitido");
             if (LibroDB != null)
-                throw new ValidationException("The Libro" + LibroDB.Titulo + " already exists in the database");
+                throw new ValidationException("Libro" + LibroDB.Titulo + " ya exsite en la base de datos");
             if (_genero == null)
-                throw new ValidationException("The Genero doesn't exists in the database");
+                throw new ValidationException("Genero no existe en la base de datos");
 
             if (_autor == null)
-                throw new ValidationException("The Autor doesn't exists in the database");
+                throw new ValidationException("Autor no existe en la base de datos");
 
             libro.genero = _genero.Nombre;
             libro.autor = _autor.NombreCompleto;
@@ -83,6 +77,16 @@ namespace Prueba.Tecnica.Libreria.Application.Repositories.Lirbos
             await _context.SaveChangesAsync();
             return libro;
 
+        }
+
+        public async Task<int> DelLibro(int idLibro)
+        {
+            var LibroDB = await _context.Libros.Where(x => x.Id == idLibro).FirstOrDefaultAsync();
+
+            if(LibroDB == null)
+                throw new ValidationException("Libro no existe en la base de datos");
+            _context.Libros.Remove(LibroDB);
+            return await _context.SaveChangesAsync();
         }
 
     }
