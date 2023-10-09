@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Prueba.Tecnica.Libreria.Entity.Libro.LibroDTO>
+
+@{
+    ViewData["Title"] = "Lista de Libros";
+}
+
+<h1>View</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.idGenero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.genero)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.año)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.numeroPaginas)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.idAutor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.autor)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.idGenero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.genero)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.año)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.numeroPaginas)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.idAutor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.autor)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
