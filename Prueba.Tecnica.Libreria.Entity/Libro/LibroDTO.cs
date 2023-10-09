@@ -18,10 +18,12 @@ namespace Prueba.Tecnica.Libreria.Entity.Libro
 
         [DisplayName("Año")]
         [Required(ErrorMessage = "{0} is required")]
+        [Range(-10000, 2023, ErrorMessage = "{0} no valid.")]
         public int año { get; set; }
 
-        [DisplayName("Numero de Paginazs")]
+        [DisplayName("Numero de Paginas")]
         [Required(ErrorMessage = "{0} is required")]
+        [Range(1, 20000, ErrorMessage = "{0} no valid.")]
         public int numeroPaginas { get; set; }
 
         [Required(ErrorMessage = "{0} is required")]

@@ -2,11 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Prueba.Tecnica.Libreria.DataAccess.Persistence;
 using Prueba.Tecnica.Libreria.Entity.Autor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Prueba.Tecnica.Libreria.Application.Repositories.Autores
 {
@@ -45,7 +40,7 @@ namespace Prueba.Tecnica.Libreria.Application.Repositories.Autores
         {
             var autorDB = await _context.Autors.Where(x => x.NombreCompleto == autor.NombreCompleto).FirstOrDefaultAsync();
             if (autorDB != null)
-                throw new ValidationException("The Autor already exists in the database");
+                throw new ValidationException("El Autor ya existe en la base de datos");
 
             var newAutor = new Autor
             {
